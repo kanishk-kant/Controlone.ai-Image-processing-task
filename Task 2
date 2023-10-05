@@ -1,0 +1,22 @@
+import cv2
+import numpy as np
+
+# Create a blank image
+image = np.zeros((512, 512, 3), dtype="uint8")
+
+# Draw a line
+cv2.line(image, (0, 0), (255, 255), (0, 255, 0), 2)
+
+# Draw a rectangle
+cv2.rectangle(image, (0, 0), (255, 255), (0, 0, 255), 2)
+
+# Draw an ellipse
+cv2.ellipse(image, (256, 256), (100, 50), 0, 0, 360, (255, 0, 0), 2)
+
+# Draw a circle
+cv2.circle(image, (256, 256), 50, (0, 255, 0), 2)
+
+# Show the image
+cv2.imshow("Image", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
