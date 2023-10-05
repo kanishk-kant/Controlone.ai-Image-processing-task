@@ -1,0 +1,53 @@
+
+
+import csv
+
+
+class WarehouseParcel:
+    def __init__(self):
+        self.parcel_data = {}
+
+    def add_parcel(self, parcel_category, parcel_number, parcel_weight):
+        if parcel_category not in self.parcel_data:
+            self.parcel_data[parcel_category] = []
+        self.parcel_data[parcel_category].append((parcel_number, parcel_weight))
+
+    def save_parcel_details_to_csv(self):
+        # Open the CSV file for writing
+        with open('parcel_details.csv', mode='w', newline='') as file:
+            writer = csv.writer(file)
+
+            # Write the header row with unique parcel categories
+            header_row = ['Parcel Category']
+            for category in self.parcel_data.keys():
+                header_row.extend([f"{category} (Parcel Number)", f"{category} (Parcel Weight)"])
+            writer.writerow(header_row)
+
+            # Find the maximum number of parcel entries for any category
+            max_entry_count = max(len(parcel_entries) for parcel_entries in self.parcel_data.values())
+
+            # Write parcel details to the CSV file
+            for i in range(max_entry_count):
+                row_data = [str(i + 1)]  # Row number
+                for category, parcel_entries in self.parcel_data.items():
+                    if i < len(parcel_entries):
+                        parcel_number, parcel_weight = parcel_entries[i]
+                        row_data.extend([str(parcel_number), str(parcel_weight)])
+                    else:
+                        row_data.extend(['', ''])
+                writer.writerow(row_data)
+
+
+# Example usage:
+warehouse = WarehouseParcel()
+warehouse.add_parcel('Filters', 23456, 5)
+warehouse.add_parcel('Filters', 96355, 6)
+warehouse.add_parcel('Filters', 83722, 7)
+warehouse.add_parcel('Automobil_parts', 66234, 8)
+warehouse.add_parcel('Automobil_parts', 86643, 9)
+warehouse.add_parcel('Automobil_parts', 64326, 10)
+warehouse.add_parcel('Cargo_containeer', 98432, 11)
+warehouse.add_parcel('Cargo_containeer', 53463, 12)
+warehouse.add_parcel('Cargo_containeer', 87653, 13)
+
+warehouse.
